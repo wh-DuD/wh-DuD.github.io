@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
   
-  <meta name="robots" content="noindex,follow">
+  
   <meta name="generator" content="Hexo 8.1.2">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin><link rel="preconnect" href="https://unpkg.com" crossorigin><link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
@@ -17,15 +17,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>归档 - wh-DuD</title>
+  <title>Clash代理问题及解决方案 - wh-DuD</title>
 
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://example.com/archives/">
+    <meta name="description" content="关于Clash代理遇到的一些问题与解决方案">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clash代理问题及解决方案">
+<meta property="og:url" content="http://example.com/2026/05/17/Clash%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
 <meta property="og:site_name" content="wh-DuD">
+<meta property="og:description" content="关于Clash代理遇到的一些问题与解决方案">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/assets/config-images/avatar.jpg">
+<meta property="article:published_time" content="2026-05-17T06:04:24.000Z">
+<meta property="article:modified_time" content="2026-05-17T06:05:48.251Z">
 <meta property="article:author" content="wh-DuD">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/assets/config-images/avatar.jpg">
@@ -46,12 +50,12 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"http://example.com","author":{"@type":"Person","name":"wh-DuD","sameAs":[],"image":"/assets/config-images/avatar.jpg"},"name":"wh-DuD","description":"","url":"http://example.com"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wh-DuD","sameAs":[],"image":"/assets/config-images/avatar.jpg"},"dateCreated":"2026-05-17T14:04:24+08:00","dateModified":"2026-05-17T14:05:48+08:00","datePublished":"2026-05-17T14:04:24+08:00","description":"关于Clash代理遇到的一些问题与解决方案","headline":"Clash代理问题及解决方案","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2026/05/17/Clash%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"},"publisher":{"@type":"Organization","name":"wh-DuD","sameAs":[],"image":"/assets/config-images/avatar.jpg","logo":{"@type":"ImageObject","url":"/assets/config-images/avatar.jpg"}},"url":"http://example.com/2026/05/17/Clash%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/","image":[]}</script>
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/xaoxuu/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/xaoxuu/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/xaoxuu/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/xaoxuu/favicon/site.webmanifest"><link rel="shortcut icon" href="/assets/xaoxuu/favicon/favicon.ico"><meta name="theme-color" content="#f8f8f8"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" media="all" />
 </head>
 <body>
 
-<div class="l_body index" id="start" layout="undefined" type="undefined" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
 
 <header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/assets/config-images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">wh-DuD</div><div class="sub cap">行到水穷处, 坐看云起时</div></a></div></header>
@@ -63,21 +67,138 @@
 <div class="widgets">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
+
+
 <widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/05/17/Clash%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"><span class="title">Clash代理问题及解决方案</span></a><a class="item title" href="/2026/05/17/%E9%A1%B9%E7%9B%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/"><span class="title">项目过程记录</span></a><a class="item title" href="/2026/05/16/Hexo%E7%BB%B4%E6%8A%A4%E6%93%8D%E4%BD%9C/"><span class="title">Hexo维护操作</span></a><a class="item title" href="/2026/05/16/claude-code%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/"><span class="title">claude code安装记录</span></a><a class="item title" href="/2026/05/16/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/"><span class="title">博客搭建记录</span></a><a class="item title" href="/2026/05/15/hello-world/"><span class="title">Hello World</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
 
-<header class="header mobile-only"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/assets/config-images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">wh-DuD</div><div class="sub cap">行到水穷处, 坐看云起时</div></a></div></header>
-
- 
 
 
-<div class="navbar top"><div class="navbar-blur"><div class="navbar-container"><nav class="post"><a href="/">近期发布</a><a class="active" href="/archives/">归档</a></nav></div></div></div><div class="post-list archives"><article class="" id="archive"><div class='archive-header h4'>2026</div><div class="archive-list"><a class='post fs14' href="/2026/05/17/Clash%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"><time>05-17</time><span>Clash代理问题及解决方案</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/05/17/%E9%A1%B9%E7%9B%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/"><time>05-17</time><span>项目过程记录</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/05/16/claude-code%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/"><time>05-16</time><span>claude code安装记录</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/05/16/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/"><time>05-16</time><span>博客搭建记录</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/05/16/Hexo%E7%BB%B4%E6%8A%A4%E6%93%8D%E4%BD%9C/"><time>05-16</time><span>Hexo维护操作</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/05/15/hello-world/"><time>05-15</time><span>Hello World</span></a></div></article></div>
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-05-17T06:04:24.000Z">2026-05-17</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-17T06:05:48.251Z">2026-05-17</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Clash代理问题及解决方案</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>关于Clash代理遇到的一些问题与解决方案</p>
+<span id="more"></span>
+
+<h1 id="Git无法使用代理"><a href="#Git无法使用代理" class="headerlink" title="Git无法使用代理"></a>Git无法使用代理</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to connect to github.com port 443 after 21089 ms: Could not connect to server</span><br></pre></td></tr></table></figure>
+
+<p>Windows 里的 Git 没有成功走 Clash Verge 代理</p>
+<h2 id="给-Git-配置-HTTP-HTTPS-代理"><a href="#给-Git-配置-HTTP-HTTPS-代理" class="headerlink" title="给 Git 配置 HTTP&#x2F;HTTPS 代理"></a>给 Git 配置 HTTP&#x2F;HTTPS 代理</h2><p>在 CMD 里执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy http://127.0.0.1:7897</span><br><span class="line">git config --global https.proxy http://127.0.0.1:7897</span><br><span class="line">git config --global -l</span><br><span class="line">curl -v https://github.com</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>在此记录一下同时遇到的问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">remote: Invalid username or token. Password authentication is not supported <span class="keyword">for</span> Git operations. fatal: Authentication failed <span class="keyword">for</span> <span class="string">&#x27;https://github.com/wh-DuD/wh-DuD.github.io.git/&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>错误从“连不上 GitHub”变成了“身份认证失败”, 接下来要处理 GitHub 登录方式</p>
+<blockquote>
+<p>GitHub 现在不支持用账号密码直接 <code>git push</code>，HTTPS 推送要用 <strong>Personal Access Token，PAT</strong>，或者用 <strong>Git Credential Manager &#x2F; 浏览器登录</strong>。GitHub 官方文档也说明了：命令行认证可以用 token 替代密码；HTTPS 克隆&#x2F;推送推荐用 Git Credential Manager 缓存凭据</p>
+</blockquote>
+<p><strong>解决方法: 用命令清除旧凭据</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git credential-manager erase</span><br></pre></td></tr></table></figure>
+
+<p>然后它可能等你输入内容，粘贴下面这三行(最后是一个空行)，最后回车：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protocol=https</span><br><span class="line">host=github.com</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后重新 push：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+
+<p>这时一般会弹出浏览器，让你登录 GitHub 授权</p>
+<h2 id="取消-Git-代理"><a href="#取消-Git-代理" class="headerlink" title="取消 Git 代理"></a>取消 Git 代理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br><span class="line">git config --global -l</span><br></pre></td></tr></table></figure>
+
+<h1 id="WSL中不能使用Clash-Verge的系统代理"><a href="#WSL中不能使用Clash-Verge的系统代理" class="headerlink" title="WSL中不能使用Clash Verge的系统代理"></a>WSL中不能使用Clash Verge的系统代理</h1><h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>WSL2 默认 NAT 模式下，WSL 里的 <code>127.0.0.1</code> 不是 Windows 本机，而是 WSL 自己</p>
+<p>在 WSL 里写：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HTTPS_PROXY=http://127.0.0.1:7897</span><br></pre></td></tr></table></figure>
+
+<p>通常是连不到 Windows 上 Clash 代理软件的</p>
+<p>Windows 能走 Clash Verge，但 WSL 没有继承这个代理</p>
+<h2 id="方案-在-WSL-里使用-Windows-主机-IP"><a href="#方案-在-WSL-里使用-Windows-主机-IP" class="headerlink" title="方案: 在 WSL 里使用 Windows 主机 IP"></a>方案: 在 WSL 里使用 Windows 主机 IP</h2><p>在 Windows 的 Clash Verge 里看一下：</p>
+<ol>
+<li><strong>System Proxy</strong>：已开启</li>
+<li><strong>Allow LAN &#x2F; 局域网连接</strong>：建议开启</li>
+<li>记住 <strong>Mixed Port</strong>，常见是 <code>7897</code>或你自己设置的端口</li>
+</ol>
+<p>在 WSL 终端执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WIN_IP=$(ip route show | grep -i default | awk <span class="string">&#x27;&#123; print $3 &#125;&#x27;</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$WIN_IP</span></span><br></pre></td></tr></table></figure>
+
+<p>然后测试代理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -I -x http://<span class="variable">$WIN_IP</span>:7897 https://www.google.com --connect-timeout 10</span><br></pre></td></tr></table></figure>
+
+<p>如果返回类似:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP/2 200</span><br></pre></td></tr></table></figure>
+
+<p>或者有 Google 的响应头，说明代理是通的</p>
+<h3 id="临时设置代理"><a href="#临时设置代理" class="headerlink" title="临时设置代理"></a>临时设置代理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> WIN_IP=$(ip route show | grep -i default | awk <span class="string">&#x27;&#123; print $3 &#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> http_proxy=http://<span class="variable">$WIN_IP</span>:7897</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://<span class="variable">$WIN_IP</span>:7897</span><br><span class="line"><span class="built_in">export</span> HTTP_PROXY=<span class="variable">$http_proxy</span></span><br><span class="line"><span class="built_in">export</span> HTTPS_PROXY=<span class="variable">$https_proxy</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> all_proxy=socks5h://<span class="variable">$WIN_IP</span>:7897</span><br><span class="line"><span class="built_in">export</span> ALL_PROXY=<span class="variable">$all_proxy</span></span><br></pre></td></tr></table></figure>
+
+<p>然后测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -I https://www.google.com --connect-timeout 10</span><br></pre></td></tr></table></figure>
+
+<h3 id="永久写入-bashrc"><a href="#永久写入-bashrc" class="headerlink" title="永久写入 ~/.bashrc"></a>永久写入 <code>~/.bashrc</code></h3><p>如果临时设置成功，再写入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/.bashrc &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Windows Clash Verge proxy for WSL</span></span><br><span class="line"><span class="built_in">export</span> WIN_IP=$(ip route show | grep -i default | awk <span class="string">&#x27;&#123; print $3 &#125;&#x27;</span>)</span><br><span class="line"><span class="built_in">export</span> http_proxy=http://<span class="variable">$WIN_IP</span>:7897</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://<span class="variable">$WIN_IP</span>:7897</span><br><span class="line"><span class="built_in">export</span> HTTP_PROXY=<span class="variable">$http_proxy</span></span><br><span class="line"><span class="built_in">export</span> HTTPS_PROXY=<span class="variable">$https_proxy</span></span><br><span class="line"><span class="built_in">export</span> all_proxy=socks5h://<span class="variable">$WIN_IP</span>:7897</span><br><span class="line"><span class="built_in">export</span> ALL_PROXY=<span class="variable">$all_proxy</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>让它生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+
+    <section id="share">
+      <div class="header"><span>分享文章</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="http://example.com/2026/05/17/Clash%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=http://example.com/2026/05/17/Clash%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/&title=Clash代理问题及解决方案 - wh-DuD&summary=关于Clash代理遇到的一些问题与解决方案"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Clash代理问题及解决方案 - wh-DuD&amp;body=http://example.com/2026/05/17/Clash%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        
+        <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=http://example.com/2026/05/17/Clash%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+        </div>
+        
+      </div>
+    </section>
+    </div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/05/17/%E9%A1%B9%E7%9B%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/">项目过程记录</a></div></section></div>
+
+
+
+
+
+
 <footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">wh-DuD</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
-</aside><div class='float-panel'>
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86"><span class="toc-text">Git无法使用代理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%99-Git-%E9%85%8D%E7%BD%AE-HTTP-HTTPS-%E4%BB%A3%E7%90%86"><span class="toc-text">给 Git 配置 HTTP&#x2F;HTTPS 代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%96%E6%B6%88-Git-%E4%BB%A3%E7%90%86"><span class="toc-text">取消 Git 代理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WSL%E4%B8%AD%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8Clash-Verge%E7%9A%84%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86"><span class="toc-text">WSL中不能使用Clash Verge的系统代理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="toc-text">问题分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88-%E5%9C%A8-WSL-%E9%87%8C%E4%BD%BF%E7%94%A8-Windows-%E4%B8%BB%E6%9C%BA-IP"><span class="toc-text">方案: 在 WSL 里使用 Windows 主机 IP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="toc-text">临时设置代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B0%B8%E4%B9%85%E5%86%99%E5%85%A5-bashrc"><span class="toc-text">永久写入 ~&#x2F;.bashrc</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
   </button>
