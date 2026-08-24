@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.38.0" theme-name="Stellar" theme-version="1.38.0">
   
-  <meta name="robots" content="none">
+  
   <meta name="generator" content="Hexo 8.1.2">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin><link rel="preconnect" href="https://unpkg.com" crossorigin><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin><link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
@@ -17,17 +17,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>wh-DuD</title>
+  <title>WSL2磁盘空间释放 - wh-DuD</title>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="wh-DuD">
-<meta property="og:url" content="http://example.com/404">
-<meta property="og:site_name" content="wh-DuD">
+  <meta name="description" content="解决在WSL2中删除了文件, 但磁盘空间没有释放的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSL2磁盘空间释放">
+<meta property="og:url" content="http://example.com/2026/08/24/WSL%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E9%87%8A%E6%94%BE/">
+<meta property="og:site_name" content="WSL2磁盘空间释放">
+<meta property="og:description" content="解决在WSL2中删除了文件, 但磁盘空间没有释放的问题">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/assets/config-images/avatar.jpg">
+<meta property="article:published_time" content="2026-08-24T13:33:44.000Z">
+<meta property="article:modified_time" content="2026-08-24T13:59:20.325Z">
 <meta property="article:author" content="wh-DuD">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/assets/config-images/avatar.jpg">
+<meta name="twitter:image" content="http://example.com/assets/config-images/avatar.jpg"><meta name="twitter:title" content="WSL2磁盘空间释放">
   
   
   
@@ -45,10 +49,10 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"http://example.com","author":{"@type":"Person","name":"wh-DuD","sameAs":[],"image":"http://example.com/assets/config-images/avatar.jpg"},"name":"wh-DuD","description":"","url":"http://example.com"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wh-DuD","sameAs":[],"image":"http://example.com/assets/config-images/avatar.jpg"},"dateCreated":"2026-08-24T21:33:44+08:00","dateModified":"2026-08-24T21:59:20+08:00","datePublished":"2026-08-24T21:33:44+08:00","description":"解决在WSL2中删除了文件, 但磁盘空间没有释放的问题","headline":"WSL2磁盘空间释放","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2026/08/24/WSL%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E9%87%8A%E6%94%BE/"},"publisher":{"@type":"Organization","name":"wh-DuD","sameAs":[],"image":"http://example.com/assets/config-images/avatar.jpg","logo":{"@type":"ImageObject","url":"http://example.com/assets/config-images/avatar.jpg"}},"url":"http://example.com/2026/08/24/WSL%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E9%87%8A%E6%94%BE/","image":[]}</script>
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/xaoxuu/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/xaoxuu/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/xaoxuu/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/xaoxuu/favicon/site.webmanifest"><link rel="shortcut icon" href="/assets/xaoxuu/favicon/favicon.ico"><meta name="theme-color" content="#f8f8f8"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" media="all" />
 </head>
-<body><div id="l_cover"></div><div class="l_body index" id="start" layout="404" type="undefined" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+<body><div id="l_cover"></div><div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
 
 
@@ -71,6 +75,8 @@
 <svg class="grad-def" width="0" height="0" aria-hidden="true" focusable="false"><defs><linearGradient id="menu-grad-social" x1="75%" y1="6.7%" x2="6.7%" y2="125%"><stop offset="20%" style="stop-color:var(--item-theme-light)"/><stop offset="60%" style="stop-color:var(--item-theme)"/></linearGradient></defs></svg>
 </a></nav>
 </div>
+
+
 <widget class="widget-wrapper slide-up recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/08/24/WSL%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E9%87%8A%E6%94%BE/"><span class="title">WSL2磁盘空间释放</span></a><a class="item title" href="/2026/05/16/Hexo%E7%BB%B4%E6%8A%A4%E6%93%8D%E4%BD%9C/"><span class="title">Hexo维护操作</span></a><a class="item title" href="/2026/05/17/%E5%AE%9E%E4%B9%A0%E6%8C%87%E4%BB%A4%E8%AE%B0%E5%BD%95/"><span class="title">实习过程记录</span></a><a class="item title" href="/2026/06/01/%E6%9C%AC%E7%A7%91%E9%98%B6%E6%AE%B5%E6%AF%95%E4%B8%9A/"><span class="title">本科阶段毕业</span></a><a class="item title" href="/2026/05/16/claude-code%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/"><span class="title">claude code安装记录</span></a><a class="item title" href="/2026/05/17/conda%E6%93%8D%E4%BD%9C/"><span class="title">conda操作</span></a><a class="item title" href="/2026/05/17/Clash%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"><span class="title">Clash代理问题及解决方案</span></a><a class="item title" href="/2026/05/16/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/"><span class="title">博客搭建记录</span></a></div></widget>
 </div>
 
@@ -79,19 +85,63 @@
 
 
 
-<article class='md-text error-page'>
-  <h1><img id='error' src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/404/1c830bfcd517d.svg' alt='404'></h1>
-  <p class='what'>
-    <strong>
-      很抱歉，您访问的页面不存在
-    </strong>
-  </p>
-  <p class='why'>
-    可能是输入地址有误或该地址已被删除
-  </p>
-  <br><br>
-  <a class='button' id='back' href="/">返回主页</a>
+
+
+<div class="article-banner-wrap slide-up"><div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-08-24T13:33:44.000Z">2026-08-24</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-08-24T13:59:20.325Z">2026-08-24</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>WSL2磁盘空间释放</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div></div>
+<article class="md-text content slide-up"><p>解决在WSL2中删除了文件, 但磁盘空间没有释放的问题</p>
+<span id="more"></span>
+
+<p>开门见山，使用以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">WSL2内:</span></span><br><span class="line"></span><br><span class="line">sudo apt clean # 删除 APT 下载的软件包缓存</span><br><span class="line">sudo apt autoremove # 删除已经不再被其他软件包依赖的包</span><br><span class="line">sudo fstrim -a # 通知底层存储设备：文件系统中哪些数据块已经不再使用，可以被回收</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Windows CMD内:</span></span><br><span class="line"></span><br><span class="line">wsl -shutdown # 关闭所有正在运行的 WSL2 实例，确保对应的 VHDX 不再被 WSL 使用</span><br><span class="line">diskpart # 进入 Windows 自带的 DiskPart 工具，用于管理 VHD/VHDX 等虚拟磁盘</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">DISKPART内:</span></span><br><span class="line"></span><br><span class="line">select vdisk file=&quot;E:\WSL\Ubuntu-20.04\ext4.vhdx&quot; # 自己的`.vhdx`文件的路径</span><br><span class="line">attach vdisk readonly # 将 VHDX 以只读方式附加到 Windows</span><br><span class="line">compact vdisk # 真正缩小 ext4.vhdx 在 Windows 文件系统中的物理占用空间</span><br><span class="line">detach vdisk # 完成压缩操作后，将 VHDX 从 Windows 中分离</span><br><span class="line">exit # 退出 DiskPart</span><br></pre></td></tr></table></figure>
+<hr>
+<p>WSL2使用的动态扩展的VHDX虚拟磁盘。Linux文件系统中的“可用空间”和Windows系统中<code>.vhdx</code>文件的“物理占用空间”并不是一回事。</p>
+<p>可以把整个过程理解成两个阶段：</p>
+<ol>
+<li>Linux内部释放空间：删除文件、清理缓存，并通过<code>fstrim</code>告诉底层存储哪些块已经不再使用。</li>
+<li>Windows回收VHDX空间：使用<code>diskpart</code>的<code>compact vdisk</code>缩小VHDX文件的物理大小</li>
+</ol>
 </article>
+<div class="article-footer slide-up">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+
+    <section id="share">
+      <div class="header"><span>分享文章</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="http://example.com/2026/08/24/WSL%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E9%87%8A%E6%94%BE/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=http://example.com/2026/08/24/WSL%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E9%87%8A%E6%94%BE/&title=WSL2磁盘空间释放 - wh-DuD&summary=解决在WSL2中删除了文件, 但磁盘空间没有释放的问题"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=WSL2磁盘空间释放 - wh-DuD&amp;body=http://example.com/2026/08/24/WSL%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E9%87%8A%E6%94%BE/"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        
+        <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
+          <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=http://example.com/2026/08/24/WSL%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E9%87%8A%E6%94%BE/"/>
+        </div>
+        
+      </div>
+    </section>
+    </div>
+
+<div class="related-wrap slide-up" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/06/01/%E6%9C%AC%E7%A7%91%E9%98%B6%E6%AE%B5%E6%AF%95%E4%B8%9A/">本科阶段毕业</a></div></section></div>
+
+
 
 
 
@@ -111,7 +161,7 @@
 
 <script type="text/javascript">
   window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
-  window.canonical["param"] = {"permalink":null,"checklink":"/js/plugins/video.js"};
+  window.canonical["param"] = {"permalink":"http://example.com/2026/08/24/WSL%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E9%87%8A%E6%94%BE/","checklink":"/js/plugins/video.js"};
   // Fix: Ensure page is at the correct top position on data load
   if (history.scrollRestoration) {
     history.scrollRestoration = 'auto';
