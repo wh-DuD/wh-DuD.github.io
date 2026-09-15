@@ -7,7 +7,10 @@
 <!--
   乱序背单词 · 单文件离线应用（支持多本词书切换）
   词书数据来源见 data/books.json，清洗后内嵌于下方 BOOKS 常量。
-  本文件不请求任何外部资源, 直接双击用浏览器打开即可使用 (建议 Chrome / Edge)。
+  直接双击用浏览器打开即可使用 (建议 Chrome / Edge)。
+  已注入与博客主题 Stellar 融合的皮肤（见下方 id="stellar-skin" 的样式、
+  字体 <link>、data-theme 同步脚本，以及页头的「返回博客」链接）；
+  重新生成本文件时需要把这些改动一并移植过去。
   由 scripts/build_index.py 从 src/app.template.html 生成, 请勿直接手工修改本文件。
 -->
 <style>
@@ -268,12 +271,126 @@
     .controls button { padding: 14px 10px; font-size: 15.5px; }
   }
 </style>
+
+<!-- ==================== 与博客主题 Stellar 融合的皮肤 ====================
+     设计令牌全部对齐 hexo-theme-stellar：
+       --bg/--panel  <- 主题的 --background / --card（浅 #f3f5f7 / 白，深 #191c1f / #272b30）
+       --ink/--ink-soft <- 主题的 --text / --text-p3（但避开纯黑纯白）
+       --line        <- 主题的 --block-border
+       --accent      <- 「探索」分区的主题色 #FA6400（与左侧导航高亮同色）
+       --radius      <- 主题的 style.border-radius.card = 16px
+       --shadow      <- 主题卡片阴影，稍微加厚一点
+       --font        <- 站点正文字体 LXGW WenKai Screen（仅中文；英文单词另用系统 UI 字体）
+     刻意比 Stellar 的原始取值"软"一档（底色略深、文字不用纯黑、不再伪粗体），
+     因为这里有一块很大的词卡，照搬 98% 白底 + 纯黑大字会晃眼。
+     明暗跟随博客：Stellar 把用户选择存在 localStorage['Stellar.theme']，
+     脚本会把它写到 <html data-theme>，这里再据此覆盖系统偏好。
+     重新生成本文件时，请把整段 <link>+<style>+<script> 一起移植。 -->
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" media="all" />
+<script>
+  /* 与博客的明暗设置保持一致（Stellar 的值：light / dark / auto） */
+  (function () {
+    try {
+      var t = window.localStorage.getItem('Stellar.theme');
+      if (t === 'light' || t === 'dark') {
+        document.documentElement.setAttribute('data-theme', t);
+      }
+    } catch (e) { /* 隐私模式 / file:// 下忽略 */ }
+  })();
+</script>
+<style id="stellar-skin">
+  :root {
+    --bg: #f3f5f7;                            /* 比 --background 略深，白卡才浮得起来 */
+    --panel: #ffffff;                         /* stellar --card */
+    --ink: #202932;                           /* 不用纯黑：大面积大字时纯黑很扎眼 */
+    --ink-soft: #5c6675;
+    --line: rgba(15, 31, 64, .10);
+    --accent: #fa6400;                        /* 探索分区主题色 */
+    --accent-soft: rgba(250, 100, 0, .10);
+    --accent-text: #b33c00;                   /* 主题色深色版：浅底上的文字用 */
+    --ok: #2d953a;                            /* stellar $c-green 的深色版（文字用） */
+    --ok-soft: rgba(61, 197, 80, .12);
+    --warn: #c2410c;
+    --warn-soft: rgba(255, 87, 36, .09);
+    --radius: 16px;                           /* stellar border-radius.card */
+    --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 6px 18px -8px rgba(16, 24, 40, .10);
+  }
+
+  /* 深色：系统偏好（没有显式选择时生效） */
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) {
+      --bg: #191c1f;
+      --panel: #272b30;
+      --ink: #e7ebef;
+      --ink-soft: #94a0ac;
+      --line: rgba(255, 255, 255, .10);
+      --accent-soft: rgba(250, 100, 0, .18);
+      --accent-text: #ffa463;
+      --ok: #4ec96a;
+      --ok-soft: rgba(61, 197, 80, .16);
+      --warn: #ff8f8f;
+      --warn-soft: rgba(255, 87, 36, .14);
+      --shadow: 0 1px 2px rgba(0, 0, 0, .40);
+    }
+  }
+
+  /* 深色：博客里显式选了深色 */
+  html[data-theme="dark"] {
+    --bg: #191c1f;
+    --panel: #272b30;
+    --ink: #e7ebef;
+    --ink-soft: #94a0ac;
+    --line: rgba(255, 255, 255, .10);
+    --accent-soft: rgba(250, 100, 0, .18);
+    --accent-text: #ffa463;
+    --ok: #4ec96a;
+    --ok-soft: rgba(61, 197, 80, .16);
+    --warn: #ff8f8f;
+    --warn-soft: rgba(255, 87, 36, .14);
+    --shadow: 0 1px 2px rgba(0, 0, 0, .40);
+  }
+
+  /* 主题色在浅底上当文字时对比度不足，改用深色版 */
+  .book-tag { color: var(--accent-text); }
+  /* 选中态的胶囊用深色字，和博客的彩色按钮观感一致 */
+  .tabs button[aria-selected="true"] { color: #fff; }
+
+  /* 卡片圆角、连续曲率圆角（Chromium 139+，其余浏览器自动回退） */
+  .card,
+  .stats,
+  .toolbar,
+  .panel,
+  .keys-panel { border-radius: var(--radius); corner-shape: superellipse(1.2); }
+  .card { border-radius: var(--radius); }
+
+  /* 词卡：字号收一点、减少空白；英文不再用楷体，也不再做伪粗体
+     （CDN 那份字体只有 400 一档，700 会让楷体笔画发糊） */
+  .card { min-height: 240px; }
+  .card .word {
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-size: clamp(28px, 5.4vw, 40px);
+    font-weight: 600;
+    letter-spacing: .01em;
+  }
+  .card .meaning { font-size: clamp(16px, 3vw, 20px); }
+
+  /* 页头：返回博客的入口，弱化处理，和博客的 breadcrumb 观感一致 */
+  .blog-back {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12.5px; color: var(--ink-soft); text-decoration: none;
+    align-self: flex-start; margin-bottom: 2px;
+    transition: color .15s ease;
+  }
+  .blog-back:hover { color: var(--accent-text); }
+  footer.foot a { color: var(--accent-text); }
+</style>
 </head>
 <body>
 <div class="wrap">
 
   <header class="top">
     <div class="brand">
+      <a class="blog-back" href="/explore/" title="回到博客的探索页">← 返回博客</a>
       <h1>背单词 <span class="book-tag" id="book-name">—</span></h1>
       <div class="sub">共 <span id="stat-total">0</span> 词 · 数据离线内嵌</div>
     </div>
