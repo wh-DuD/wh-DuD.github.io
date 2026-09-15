@@ -271,7 +271,6 @@
     .controls button { padding: 14px 10px; font-size: 15.5px; }
   }
 </style>
-
 <!-- ==================== 与博客主题 Stellar 融合的皮肤 ====================
      设计令牌全部对齐 hexo-theme-stellar：
        --bg/--panel  <- 主题的 --background / --card（浅 #f3f5f7 / 白，深 #191c1f / #272b30）
@@ -503,22 +502,14 @@
         </div>
         <div class="keys-hint" id="voice-info"></div>
         <div class="keys-hint" id="speak-status"></div>
+        <label class="switch" style="font-size:13px">
+          <input type="checkbox" id="toggle-all-voices">
+          <span class="track" aria-hidden="true"></span>
+          <span>显示全部语音（高级）</span>
+        </label>
         <div class="keys-hint">
-          朗读只用系统语音，不下载音频文件。<b>没有声音时按这个顺序查：</b>
-        </div>
-        <div class="keys-hint">
-          ① 点「测试发音」，看下面「最近一次」写了什么原因；
-        </div>
-        <div class="keys-hint">
-          ② 在语音下拉里选一个名字带 <b>Microsoft</b> 的（那是系统本地语音，可离线）；如果没有，说明浏览器没拿到系统语音；
-        </div>
-        <div class="keys-hint">
-          ③ 若下拉里全是「Google …」开头的：这类是在线语音，<b>需要联网（网络受限时可开启系统代理／加速器）</b>；
-          想彻底离线就去装英语语音包：Windows 设置 → 时间和语言 → 语音（或 语言和区域 → English → 语言选项 → 语音），
-          装完 <b>重启浏览器</b>；也可在 控制面板 → 语音识别 → 文本到语音转换 里确认有英语语音；
-        </div>
-        <div class="keys-hint">
-          ④ 暂时没有本地语音时，可以先照着卡片上的音标自己拼读（音标一直显示）。
+          默认只列每个口音里最好的一个。没声音时：先点「测试发音」看结果；若显示“在线”，说明需要联网（网络受限可开代理），
+          或改用「本地」语音 / 安装系统英语语音包。
         </div>
       </div>
     </details>
@@ -689,6 +680,7 @@ function defaultGlobalSettings(defaultBook) {
     currentBook: defaultBook,
     showMeaning: true,
     voiceURI: null,
+    accentPref: "auto",    // auto | en-US | en-GB | en-AU（只在没指定具体语音时生效）
     shareKnown: true,      // 跨词书共享「已记住」（词书重叠大时很有用）
     keys: defaultKeys()
   };
@@ -708,6 +700,7 @@ function loadGlobalSettings(storage, defaultBook) {
     currentBook: typeof parsed.currentBook === "string" && parsed.currentBook ? parsed.currentBook : defaultBook,
     showMeaning: parsed.showMeaning !== false,
     voiceURI: typeof parsed.voiceURI === "string" && parsed.voiceURI.length ? parsed.voiceURI : null,
+    accentPref: /^en-[A-Z]{2}$/.test(parsed.accentPref || "") ? parsed.accentPref : "auto",
     shareKnown: parsed.shareKnown !== false,
     keys: sanitizeKeys(parsed.keys)
   };
@@ -721,6 +714,7 @@ function saveGlobalSettings(storage, settings) {
       currentBook: settings.currentBook,
       showMeaning: settings.showMeaning !== false,
       voiceURI: settings.voiceURI || null,
+      accentPref: settings.accentPref || "auto",
       shareKnown: settings.shareKnown !== false,
       keys: settings.keys
     }));
@@ -770,6 +764,7 @@ function buildState(settings, known, session) {
     version: 2,
     showMeaning: settings.showMeaning !== false,
     voiceURI: settings.voiceURI || null,
+    accentPref: settings.accentPref || "auto",
     keys: settings.keys,
     speakEnabled: keep.speakEnabled !== false,
     autoSpeak: keep.autoSpeak === true,
@@ -1114,6 +1109,7 @@ function createApp(words, state, rng, savedProgress, extraKnown) {
     speakStatus: document.getElementById("speak-status"),
     voiceInfo: document.getElementById("voice-info"),
     voiceSelect: document.getElementById("voice-select"),
+    toggleAllVoices: document.getElementById("toggle-all-voices"),
     btnSpeakTest: document.getElementById("btn-speak-test"),
     toggleAutoSpeak: document.getElementById("toggle-autospeak"),
     toggleVoice: document.getElementById("toggle-voice"),
@@ -1158,6 +1154,7 @@ function createApp(words, state, rng, savedProgress, extraKnown) {
     }
     globalSettings.showMeaning = state.showMeaning !== false;
     globalSettings.voiceURI = state.voiceURI || null;
+    globalSettings.accentPref = state.accentPref || "auto";
     globalSettings.keys = state.keys;
     globalSettings.currentBook = activeBook;
     var ok = saveKnown(storage, activeBook, state) && saveGlobalSettings(storage, globalSettings);
@@ -1258,7 +1255,68 @@ function createApp(words, state, rng, savedProgress, extraKnown) {
                  .concat(online.filter(isGoogleVoice));
   }
 
-  /** 候选语音顺序：用户指定的 -> 本地英语 -> 其它英语 -> 其它。
+  /* 语音"正宗程度"分级：神经网络语音 > 各家知名高质量语音 > Google 网络语音 > 桌面合成语音。
+     用户在设置里只会看到每个口音里最好的那一个，不必面对 20 多个条目。 */
+  var VOICE_TIERS = [
+    { tier: 1, re: /natural|neural|enhanced|premium/i },
+    { tier: 2, re: /^(microsoft )?(aria|jenny|guy|davis|jane|nancy|tony|amber|ana|christopher|eric|roger|steffan|michelle|samantha|alex|ava|allison|susan|tom|karen|daniel|moira|tessa|serena|oliver|arthur|libby|sonia|ryan)/i },
+    { tier: 3, re: /^google/i },
+    { tier: 4, re: /^(microsoft )?(zira|david|mark|hazel|george|eva|linda|richard|heera|ravi|sean|mary|catherine|james|amanda|ashley)/i }
+  ];
+
+  function voiceTier(voice) {
+    var name = (voice && voice.name) || "";
+    for (var i = 0; i < VOICE_TIERS.length; i++) {
+      if (VOICE_TIERS[i].re.test(name)) return VOICE_TIERS[i].tier;
+    }
+    return 5;
+  }
+
+  var ACCENT_LABELS = [
+    { code: "en-US", label: "美音" },
+    { code: "en-GB", label: "英音" },
+    { code: "en-AU", label: "澳音" }
+  ];
+
+  function accentOf(voice) {
+    var lang = (voice && voice.lang) || "";
+    return lang.replace("_", "-").slice(0, 5);
+  }
+
+  /** 按口音分组，组内按 质量分级 -> 本地优先 -> 名称 排序，取每组最好的一个。 */
+  function bestVoicePerAccent(voices) {
+    var english = (voices || []).filter(function (v) { return /^en/i.test(v.lang || ""); });
+    var groups = {};
+    english.forEach(function (v) {
+      var acc = accentOf(v);
+      (groups[acc] = groups[acc] || []).push(v);
+    });
+    var result = [];
+    Object.keys(groups).forEach(function (acc) {
+      groups[acc].sort(function (a, b) {
+        var t = voiceTier(a) - voiceTier(b);
+        if (t !== 0) return t;
+        if (!!a.localService !== !!b.localService) return a.localService ? -1 : 1;
+        return (a.name || "").localeCompare(b.name || "");
+      });
+      result.push({ accent: acc, voice: groups[acc][0], all: groups[acc] });
+    });
+    result.sort(function (a, b) {
+      var ia = ACCENT_LABELS.map(function (x) { return x.code; }).indexOf(a.accent);
+      var ib = ACCENT_LABELS.map(function (x) { return x.code; }).indexOf(b.accent);
+      return (ia < 0 ? 9 : ia) - (ib < 0 ? 9 : ib);
+    });
+    return result;
+  }
+
+  function accentLabel(accent) {
+    for (var i = 0; i < ACCENT_LABELS.length; i++) {
+      if (ACCENT_LABELS[i].code === accent) return ACCENT_LABELS[i].label;
+    }
+    return accent;
+  }
+
+  /** 候选语音顺序：用户指定的 -> 偏好口音 -> 本地英语 -> 其它英语 -> 其它。
    *  排成候选列表是为了「这个语音不出声就自动换下一个」。 */
   function candidateVoices() {
     var list = refreshVoices();
@@ -1267,6 +1325,13 @@ function createApp(words, state, rng, savedProgress, extraKnown) {
     // 本地 -> 其它在线 -> Google 在线放最后（Google 在线语音在部分网络下不可用，先试别的）
     var ordered = english.filter(function (v) { return v.localService; })
              .concat(onlineVoicesSorted(english));
+    // 「自动」时同口音内按质量分级排一次序，让更好的语音优先
+    ordered.sort(function (a, b) {
+      var t = voiceTier(a) - voiceTier(b);
+      if (t !== 0) return t;
+      if (!!a.localService !== !!b.localService) return a.localService ? -1 : 1;
+      return 0;
+    });
     if (!ordered.length) ordered = list.slice();
     if (state.voiceURI) {
       var picked = null;
@@ -1279,17 +1344,33 @@ function createApp(words, state, rng, savedProgress, extraKnown) {
     return ordered;
   }
 
-  function resolveVoice() {
-    var ordered = candidateVoices();
-    if (!ordered.length) return { voice: null, local: false, available: false };
-    return { voice: ordered[0], local: !!ordered[0].localService, available: true };
+  /**
+   * 候选语音的**唯一**排序入口：用户指定语音 -> 偏好口音里最优 -> 其余按质量分级。
+   * 显示（resolveVoice）与实际发声（speakWord）都必须用它，否则会出现
+   * "面板显示 Google 美音、实际却念英音" 这种不一致。
+   */
+  function orderedCandidates() {
+    var ordered = candidateVoices();          // 已按 质量分级 -> 本地优先 排序，并把指定语音置顶
+    if (state.voiceURI || !ordered.length) return ordered;
+    var pref = state.accentPref || "auto";
+    if (pref === "auto") return ordered;
+    var same = ordered.filter(function (v) { return accentOf(v) === pref; });
+    if (!same.length) return ordered;
+    var rest = ordered.filter(function (v) { return accentOf(v) !== pref; });
+    return same.concat(rest);
   }
 
-  /** 本地英语语音有几个（用于面板上给出明确结论）。 */
+  /** 本地英语语音有几个（面板上给出明确结论用）。 */
   function localEnglishCount() {
     return refreshVoices().filter(function (v) {
       return v.localService && /^en/i.test(v.lang || "");
     }).length;
+  }
+
+  function resolveVoice() {
+    var ordered = orderedCandidates();
+    if (!ordered.length) return { voice: null, local: false, available: false };
+    return { voice: ordered[0], local: !!ordered[0].localService, available: true };
   }
 
   function reportSpeakResult(text, isError) {
@@ -1341,7 +1422,7 @@ function createApp(words, state, rng, savedProgress, extraKnown) {
       reportSpeakResult("当前浏览器不支持语音朗读（speechSynthesis 不可用）。", true);
       return false;
     }
-    var candidates = candidateVoices();
+    var candidates = orderedCandidates();
     if (!candidates.length) {
       // Chrome 冷启动时 getVoices() 常先返回空（异步加载），这里等它一下再念，别急着报错
       waitForVoicesThenSpeak(target, round, 0);
@@ -1442,26 +1523,58 @@ function createApp(words, state, rng, savedProgress, extraKnown) {
     }
   }
 
-  /** 语音下拉框：自动 + 每个可用语音。 */
+  var showAllVoices = false;
+
+  /**
+   * 语音下拉框：默认只给「自动 + 美音/英音/澳音」几个有意义的选择；
+   * 需要挑选具体语音时，勾选「显示全部语音」再展开完整列表。
+   */
   function renderVoiceOptions() {
     if (!el.voiceSelect) return;
     var list = refreshVoices();
     el.voiceSelect.textContent = "";
-    var auto = document.createElement("option");
-    auto.value = "";
-    auto.textContent = "自动（优先本地英语）";
-    el.voiceSelect.appendChild(auto);
-    list.slice().sort(function (a, b) {
-      if (!!a.localService !== !!b.localService) return a.localService ? -1 : 1;   // 本地优先
-      if (isGoogleVoice(a) !== isGoogleVoice(b)) return isGoogleVoice(a) ? 1 : -1; // Google 在线排最后
-      return (a.name || "").localeCompare(b.name || "");
-    }).forEach(function (v) {
+
+    function addOption(value, label) {
       var opt = document.createElement("option");
-      opt.value = v.voiceURI;
-      opt.textContent = v.name + " · " + v.lang + (v.localService ? " · 本地" : " · 在线");
+      opt.value = value;
+      opt.textContent = label;
       el.voiceSelect.appendChild(opt);
+      return opt;
+    }
+
+    var groups = bestVoicePerAccent(list);
+    var englishSorted = (list || []).filter(function (v) { return /^en/i.test(v.lang || ""); }).slice()
+      .sort(function (a, b) {
+        var t = voiceTier(a) - voiceTier(b);
+        if (t !== 0) return t;
+        if (!!a.localService !== !!b.localService) return a.localService ? -1 : 1;
+        return (a.name || "").localeCompare(b.name || "");
+      });
+    var autoVoice = englishSorted[0] || null;
+    var autoLabel = autoVoice
+      ? "自动（" + describeVoice(autoVoice) + "）"
+      : "自动（优先本地英语）";
+    addOption("auto", autoLabel);
+    groups.forEach(function (g) {
+      addOption("accent:" + g.accent, accentLabel(g.accent) + " · " + describeVoice(g.voice));
     });
-    el.voiceSelect.value = state.voiceURI || "";
+
+    if (showAllVoices) {
+      var rest = list.slice().sort(function (a, b) {
+        var t = voiceTier(a) - voiceTier(b);
+        if (t !== 0) return t;
+        if (!!a.localService !== !!b.localService) return a.localService ? -1 : 1;
+        return (a.name || "").localeCompare(b.name || "");
+      });
+      rest.forEach(function (v) {
+        addOption("voice:" + v.voiceURI, "　" + v.name + " · " + v.lang + (v.localService ? " · 本地" : " · 在线"));
+      });
+    }
+
+    if (state.voiceURI) el.voiceSelect.value = "voice:" + state.voiceURI;
+    else el.voiceSelect.value = (state.accentPref && state.accentPref !== "auto")
+      ? "accent:" + state.accentPref : "auto";
+    if (!el.voiceSelect.value) el.voiceSelect.value = "auto";
   }
 
   function renderSpeakButton() {
@@ -1788,10 +1901,25 @@ function createApp(words, state, rng, savedProgress, extraKnown) {
   }
 
   if (el.voiceSelect) el.voiceSelect.addEventListener("change", function () {
-    state.voiceURI = el.voiceSelect.value || null;
+    var value = el.voiceSelect.value || "auto";
+    if (value.indexOf("accent:") === 0) {
+      state.accentPref = value.slice(7);
+      state.voiceURI = null;
+    } else if (value.indexOf("voice:") === 0) {
+      state.voiceURI = value.slice(6);
+      state.accentPref = "auto";
+    } else {
+      state.accentPref = "auto";
+      state.voiceURI = null;
+    }
     persist();
     renderSpeakStatus();
     speakWord();     // 换语音后立刻试听，方便判断哪个能出声
+  });
+
+  if (el.toggleAllVoices) el.toggleAllVoices.addEventListener("change", function () {
+    showAllVoices = el.toggleAllVoices.checked;
+    renderVoiceOptions();
   });
 
   if (el.btnSpeakTest) el.btnSpeakTest.addEventListener("click", function () {
@@ -2038,6 +2166,8 @@ function createApp(words, state, rng, savedProgress, extraKnown) {
     setShareKnown: setShareKnown,
     flushProgress: saveProgressNow,
     speakWord: speakWord,
+    resolveVoice: resolveVoice,
+    voiceList: refreshVoices,
     lastSpoken: function () { return lastSpokenWord; },
     keyLabel: keyLabel
   };
